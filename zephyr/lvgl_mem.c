@@ -9,7 +9,7 @@
 #include <zephyr/kernel.h>
 #include <zephyr/init.h>
 #include <zephyr/sys/sys_heap.h>
-
+#include <stdbool.h>
 
 #define HEAP_BYTES (CONFIG_LV_Z_MEM_POOL_MAX_SIZE * \
 		    CONFIG_LV_Z_MEM_POOL_NUMBER_BLOCKS)
@@ -48,6 +48,14 @@ void lvgl_free(void *ptr)
 
 	key = k_spin_lock(&lvgl_heap_lock);
 	sys_heap_free(&lvgl_heap, ptr);
+	k_spin_unlock(&lvgl_heap_lock, key);
+}
+
+void lvgl_print_heap_info(bool dump_chunks){
+    k_spinlock_key_t key;
+
+	key = k_spin_lock(&lvgl_heap_lock);
+    sys_heap_print_info(&lvgl_heap, dump_chunks);
 	k_spin_unlock(&lvgl_heap_lock, key);
 }
 
