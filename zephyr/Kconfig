@@ -21,7 +21,6 @@ config LV_Z_USE_FILESYSTEM
 config LV_Z_SHELL
 	bool "LVGL Shell"
 	depends on SHELL
-    depends on LV_USE_MONKEY
 	help
 	  Enable LVGL Shell for testing.
 
