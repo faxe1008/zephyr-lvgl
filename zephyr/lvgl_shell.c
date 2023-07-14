@@ -135,6 +135,7 @@ static int cmd_lvgl_monkey_create(const struct shell *sh, size_t argc, char *arg
 	for (size_t i = 0; i < CONFIG_LV_Z_MAX_MONKEY_COUNT; i++) {
 		if (lvgl_monkeys[i] == NULL) {
 			lvgl_monkeys[i] = lv_monkey_create(&default_config);
+			lv_monkey_set_enable(lvgl_monkeys[i], true);
 			created_monkey = true;
 			break;
 		}
